@@ -2,3 +2,5 @@
 
 <a href="{{route('funcion.interesEfectivo')}}">funcion i</a>
 mi i= {{$i}}
+
+cambio dese giut....
