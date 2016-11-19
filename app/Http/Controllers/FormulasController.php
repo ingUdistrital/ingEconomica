@@ -13,7 +13,11 @@ class FormulasController extends Controller
      */
     public function interesEfectivo($j,$n){
         $i=$j/$n;/** interes efectivo(en meses) */
-        return $i;
+       //return $i;
+        $data=[
+            'i'=>$i
+        ];
+        return view('home')->whit($data);
     }
     /**
      * calcula el interes nominal (j) apartir del interes efectivo (i)

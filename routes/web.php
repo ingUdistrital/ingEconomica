@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('funciion/i',['uses'=>'FormulasController@interesEfectivo','as'=>'funcion.interesEfectivo']);
