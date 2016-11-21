@@ -57,12 +57,12 @@ class FormulasController extends Controller
      * @param $n1- periodo de tiempo ($f- frecuencia)
      * @return float - interes
      */
-    public function equivalenciaTasas( $f,$i,$n,$i1,$n1){
+    /*public function equivalenciaTasas( $f,$i,$n,$i1,$n1){
         $n1 = $n/$f;
         $i= (pow((1+$i1),(12/$n1)))-1;
         return $i;
 
-    }
+    }*/
 
 
 }
