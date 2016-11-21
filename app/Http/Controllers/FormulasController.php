@@ -29,4 +29,40 @@ class FormulasController extends Controller
         $j=$i*$n;
         return $j;
     }
+
+    /**
+     * calcula el interes complejo
+     * @param $p- monto inversion
+     * @param $i- interes efectivo(en meses)
+     * @param $n- periodo de tiempo en el que se vence la inversion.
+     * @param $s- monto final a la entrega del vencimiento
+     * @return float - interes complejo
+     */
+    public function interesComplejo( $p,$i,$n,$s){
+        if(empty($s)||isset($s)||is_null($s)){
+            $s = $p*(pow((1+$i),$n));
+            return $s;
+        }elseif(empty($p)||isset($p)||is_null($p)){
+            $p = $s/(pow((1+$i),$n));
+            return $p;
+        }
+    }
+
+    /**
+     * calcula la equivalencia de tasas
+     * @param $f- frecuencia (trimestral, anual, mensual, diaria, etc)
+     * @param $i- interes efectivo(en meses)
+     * @param $n- periodo de tiempo (en meses)
+     * @param $i1- interes efectivo($f- frecuencia)
+     * @param $n1- periodo de tiempo ($f- frecuencia)
+     * @return float - interes
+     */
+    public function equivalenciaTasas( $f,$i,$n,$i1,$n1){
+        $n1 = $n/$f;
+        $i= (pow((1+$i1),(12/$n1)))-1;
+        return $i;
+
+    }
+
+
 }
