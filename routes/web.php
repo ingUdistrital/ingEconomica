@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',['uses'=>'PeticionesController@index','as'=>'index']);
 
-Route::get('funciion/i',['uses'=>'FormulasController@interesEfectivo','as'=>'funcion.interesEfectivo']);
+Route::get('/interes/compuesto',['uses'=>'PeticionesController@formInteresCompuesto','as'=>'interes']);
+
+

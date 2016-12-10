@@ -1,74 +1,32 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>@yield('title') | INGENIERIA ECONOMICA</title>
+        <link href="{{asset('bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
+        <script src="{{asset('js/jquery.min.js')}}"></script>
+        @yield('head')
+        <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>@yield('title')</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div class="title m-b-md">
-                    @yield('content')
-                </div>
-            </div>
+        <div class="container">
+            @include('template.header')
+            @include('template.alert')
+            @yield('content')
         </div>
+        <footer>
+            <h4>UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS</h4>
+
+            <h5>FACULTAD TECNOLÓGICA</h5>
+
+            <h6>INGENIERÍA EN TELEMÁTICA TEORÍA GENERAL DE SISTEMAS</h6>
+
+            <p>BOGOTÁ D.C.</p>
+            <p>2016</p>
+            </h6>
+        </footer>
+        <script src="asset('js/bootstrap.min.js')"></script>
+        @yield('script')
     </body>
-    @yield('script')
 </html>

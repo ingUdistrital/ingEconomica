@@ -1,0 +1,55 @@
+body{
+    background: url(../images/fondo.jpg) repeat ;
+}
+h1{
+	margin:5px;
+	padding: 5px;
+}
+/***********************************************/
+nav{
+    margin: 4% 5%;
+}
+nav a{
+    border-right: red solid 1px;
+    margin:1px;
+}
+/***********************************************/
+#banner {
+    padding-left: 20%;
+}
+#banner img{
+    border: red solid 2px;
+    border-radius: 0.5em;
+}
+/**********************************************/
+footer{
+	margin-left: 5%;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    height: 65px;
+
+}
+#anualidades,#interes,#amortizacion{
+	margin-left: 15%;
+    margin-top: 4%;
+}
+#textos{
+	font-size: 1.3em;
+	border-left:red solid 1px;
+	padding-left: 10px;
+	text-align: justify;
+}
+#textosi{
+	font-size: 1.2em;
+	border-left:red solid 1px;
+	padding-left: 10px;
+	text-align: justify;
+}
+
+#textos a,#textosi a{
+	text-align: right;
+}
+
+
