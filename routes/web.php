@@ -14,5 +14,6 @@
 Route::get('/',['uses'=>'PeticionesController@index','as'=>'index']);
 
 Route::get('/interes/compuesto',['uses'=>'PeticionesController@formInteresCompuesto','as'=>'interes']);
+Route::post('/interes/compuesto',['uses'=>'PeticionesController@postInteresCompuesto','as'=>'interes.post']);
 
 

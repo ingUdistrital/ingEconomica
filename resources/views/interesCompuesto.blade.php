@@ -7,7 +7,8 @@
 @section('content')
     <div id="interes">
         <h1>{{$title}}</h1>
-        <form name="interes-compuesto" action="" method="POST">
+        <form name="interes-compuesto" action="{{route('interes.post')}}" method="POST">
+            {{csrf_field()}}
             <div id="periodo" class="col-sm-4">
                 <h3>Capital inicial:</h3>
                 <td> $ </td><input type="TEXT" name="p" size="10" onchange="value=formatNumber(value,2,0)">
@@ -33,13 +34,13 @@
 
                 <h3>Número de períodos</h3><input class="vis biginput R W60" type="text" id="period" name="period" value="5" maxlength="3" onclick="this.value = ;" onkeyup="">
 
-                <input type="BUTTON" value="Calcular" onclick="">
+                <input type="submit" value="Calcular">
             </div>
 
 
             <div class="col-sm-4">
                 <div  id="textosi">
-                    <a href="index.php">INICIO</a>
+                    <a href="{{route('index')}}">INICIO</a>
                     <h2>Interes Compuesto</h2>
                     <p>representa el costo del dinero , beneficio o utilidad de un capital inicial (C) o principal a una tasa de interés (i) durante un período (t) , en el cual los intereses que se obtienen al final de cada período de inversión no se retiran sino que se reinvierten o añaden al capital inicial; es decir, se capitalizan , produciendo un capital final (C f ).<br>
                         Para un período determinado sería<br>

@@ -15,4 +15,14 @@ class PeticionesController extends Controller
         $data=['title'=>'INTERES COMPUESTO'];
         return view('interesCompuesto')->with($data);
     }
+
+    public function postInteresCompuesto(Request $request){
+        $p=$request->p;
+
+        dd($p);
+
+        $data=['title'=>'INTERES COMPUESTO'];
+        return view('interesCompuesto')->with($data);
+    }
+
 }
