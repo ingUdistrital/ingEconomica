@@ -49,20 +49,35 @@ class FormulasController extends Controller
     }
 
     /**
-     * calcula la equivalencia de tasas
-     * @param $f- frecuencia (trimestral, anual, mensual, diaria, etc)
-     * @param $i- interes efectivo(en meses)
-     * @param $n- periodo de tiempo (en meses)
-     * @param $i1- interes efectivo($f- frecuencia)
-     * @param $n1- periodo de tiempo ($f- frecuencia)
-     * @return float - interes
+     * Convierte la tasa nominal a tasa efectiva
+     * @param $j - tasa nominal
+     * @param $m - periodo de tiempo (meses, trimestre,semestre, etc)
+     * @return float|int $i - retorna el valor de la tasa en tasa efectiva
      */
-    /*public function equivalenciaTasas( $f,$i,$n,$i1,$n1){
-        $n1 = $n/$f;
-        $i= (pow((1+$i1),(12/$n1)))-1;
-        return $i;
+    public function tasaEfectiva($j,$m){
+        return $j/$m;/** retorna i - tasa efectiva*/
+    }
+    /**
+     * Convierte la tasa efectiva a tasa nominal
+     * @param $i- tasa efectiva
+     * @param $n - periodo de tiempo (meses, trimestre,semestre, etc)
+     * @return float|int $j - retorna el valor de la tasa en tasa nominal
+     */
+    public function tasaNominal($i,$n){
+        return $i/$n;/** retorna j - tasa nominal*/
+    }
 
-    }*/
+    /**
+     * calcula la equivalencia de 2 tasas, convirtiendo la tasa ingresada a la equivalente en el periodo de tiempo
+     * indicado ejem: i1=0,08 n1=trimesral lo convierte al i quivalente en el periodo de tiempo n2 indicado
+     */
+    public function equivalenciaTasas( $i,$n1,$n2){
+        /************Queda pendiente corregir la raiz************/
+        $interes = pow((1+$i),$n1);
+        $i2= pow($interes,1/$n2)-1;
+        //$i2= pow(9,(1/3));
+        return $i2;
+    }
 
 
 }
