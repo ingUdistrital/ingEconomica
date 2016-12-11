@@ -49,7 +49,8 @@ class PeticionesController extends Controller
     }
 
     public function formAmortizacion(){
-        $data=['title'=>'ANUALIDADES'];
+        $data=[
+            'title'=>'AMORTIZACION'];
         return view('amortizacion')->with($data);
     }
 
@@ -58,7 +59,7 @@ class PeticionesController extends Controller
 
         //dd($this->formulas->equivalenciaTasas(0.08,4,12));
 
-        $data=['title'=>'ANUALIDADES'];
+        $data=['title'=>'AMORTIZACION'];
         return view('amortizacion')->with($data);
     }
 

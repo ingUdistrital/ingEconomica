@@ -7,7 +7,7 @@
 @section('content')
     <div id="amortizacion">
         <h1>AMORTIZACION Y CAPITALIZACION</h1>
-        <form name="amortizacion" action="" method="POST">
+        <form name="amortizacion" action="{{route('amortizacion.post')}}" method="POST">
             <div id="datos" class="col-sm-6">
                 <h2>Intriduce los Datos Solicitados</h2>
                 <h3>Monto:</h3>
