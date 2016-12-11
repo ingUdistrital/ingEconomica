@@ -25,7 +25,7 @@ class PeticionesController extends Controller
     public function postInteresCompuesto(Request $request){
         $p=$request->p;
 
-        dd($this->formulas->equivalenciaTasas(2,3,4));
+        dd($this->formulas->equivalenciaTasas(0.08,4,12));
 
         $data=['title'=>'INTERES COMPUESTO'];
         return view('interesCompuesto')->with($data);
