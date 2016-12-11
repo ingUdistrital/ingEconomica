@@ -24,13 +24,13 @@
             <h5>DOCENTE:</h5>
             <h4>EDWING OSWALDO BERDUGO ROMERO</h4><br>
 
-            <h4>UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS</h4>
+            <!-- <h4>UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS</h4>
 
-            <h5>FACULTAD TECNOLÓGICA</h5>
+                 <h5>FACULTAD TECNOLÓGICA</h5>
 
-            <h6>INGENIERÍA EN TELEMÁTICA TEORÍA GENERAL DE SISTEMAS</h6>
+             <h6>INGENIERÍA EN TELEMÁTICA TEORÍA GENERAL DE SISTEMAS</h6>
 
-            <p>BOGOTÁ D.C. 2016</p>
+             <p>BOGOTÁ D.C. 2016</p> -->
         </div>
     </main>
 @endsection

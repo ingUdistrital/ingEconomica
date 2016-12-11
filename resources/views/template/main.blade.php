@@ -15,16 +15,15 @@
             @include('template.alert')
             @yield('content')
         </div>
-        <footer>
-            <h4>UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS</h4>
+        <br/><br/><br/>
+        <footer class="footer">
+            <strong>UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS</strong><br/>
+            <strong>FACULTAD TECNOLÓGICA</strong><br/>
+            <strong>INGENIERÍA EN TELEMÁTICA</strong><br/>
+            <strong>MATERIA INGENIERÍA ECONOMICA</strong><br/>
+            <strong>BOGOTÁ D.C.</strong><br/>
+            <strong>2016 - 3</strong><br/>
 
-            <h5>FACULTAD TECNOLÓGICA</h5>
-
-            <h6>INGENIERÍA EN TELEMÁTICA TEORÍA GENERAL DE SISTEMAS</h6>
-
-            <p>BOGOTÁ D.C.</p>
-            <p>2016</p>
-            </h6>
         </footer>
         <script src="asset('js/bootstrap.min.js')"></script>
         @yield('script')
