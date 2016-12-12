@@ -16,7 +16,7 @@ class FormulasController extends Controller
      */
     public function tasaEfectiva($j, $m)
     {
-        return $j / $m;
+        return $j/$m;
         /** retorna i - tasa efectiva*/
     }
 
@@ -28,7 +28,7 @@ class FormulasController extends Controller
      */
     public function tasaNominal($i, $n)
     {
-        return $i / $n;
+        return $i * $n;
         /** retorna j - tasa nominal*/
     }
 
@@ -55,15 +55,10 @@ class FormulasController extends Controller
      * @param $s- monto final a la entrega del vencimiento
      * @return float - interes complejo
      */
-    public function interesCompuesto($p, $i, $n, $s)
+    public function interesCompuesto($p, $i, $n)
     {
-        if (empty($s) || isset($s) || is_null($s)) {
-            $s = $p * (pow((1 + $i), $n));
-            return $s;
-        } elseif (empty($p) || isset($p) || is_null($p)) {
-            $p = $s / (pow((1 + $i), $n));
-            return $p;
-        }
+        $s = $p * (pow((1 + $i), $n));
+        return $s;
     }
     /**
      * calcula el monto de invercion (p), teniendo el monto final s al termino del periodo de tiempo total,
