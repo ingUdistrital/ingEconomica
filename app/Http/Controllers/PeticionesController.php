@@ -17,30 +17,49 @@ class PeticionesController extends Controller
             'b'=>6,
             't'=>4,
             's'=>2,
-            'a'=>1
         ];
         $this->tiposPeriodos=[
             'm'=>'Mes',
             'b'=>'Bimestres',
             't'=>'Trimestres',
             's'=>'Semestres',
-            'a'=>'Años'
         ];
         $this->tiposTasas=[
             'em'=>'Efectiva Mensual',
             'eb'=>'Efectiva Bimestral',
             'et'=>'Efectiva Trimestral',
             'es'=>'Efectiva Semestral',
-            'ea'=>'Efectiva Anual',
             'nm'=>'Nominal Mensual',
             'nb'=>'Nominal Bimestral',
             'nt'=>'Nominal Trimestral',
             'ns'=>'Nominal Semestral',
-            'na'=>'Nominal Anual',
         ];
         $this->formulas=new FormulasController();
     }
 
+    /**
+     * verifica la tasa y hace las converciones pertinentes,
+     * si se nesecita pasar de anual a efectiva, equivalencia de tasas
+     * @param Request $request
+     * @return float|int|number - retorna la tasa verificada y si es el caso recalculada
+     */
+    public function verificarTasa(Request $request){
+        $tasa=str_replace(',','.',$request->tasa)/100;
+        /**determino si la tasa es nominal o efectiva, si es nominal se convierte a efectiva*/
+        if(substr($request->tipTasa,0,1)=='n'):
+            $i=$this->formulas->tasaEfectiva($tasa,$this->tiempos[$request->tipoPeriodo]);
+        else:
+            $i=$tasa;
+        endif;
+        /** se determina si los periodos de cobros estan en unidades de tiempo diferentes a las del interes
+         * ejemplo si el periodo de cobro es mensual pero el interes se cobra trimestral, se conbierte a interes mensual
+         */
+        if(substr($request->tipTasa,1,1)!==$request->tipoPeriodo):
+            $i=$this->formulas->equivalenciaTasas($i,$this->tiempos[substr($request->tipTasa,1,1)],$this->tiempos[$request->tipoPeriodo]);
+        endif;
+
+        return $i;
+    }
     public function index(){
         $data=['title'=>'PROYECTO'];
         return view('welcome')->with($data);
@@ -60,19 +79,7 @@ class PeticionesController extends Controller
             'periodo'=>'required',
             'tasa'=>'required'
         ]);
-        $tasa=str_replace(',','.',$request->tasa)/100;
-        /**determino si la tasa es nominal o efectiva, si es nominal se convierte a efectiva*/
-        if(substr($request->tipTasa,0,1)=='n'):
-            $i=$this->formulas->tasaEfectiva($tasa,$this->tiempos[$request->tipoPeriodo]);
-        else:
-            $i=$tasa;
-        endif;
-        /** se determina si los periodos de cobros estan en unidades de tiempo diferentes a las del interes
-         * ejemplo si el periodo de cobro es mensual pero el interes se cobra trimestral, se conbierte a interes mensual
-         */
-        if(substr($request->tipTasa,1,1)!==$request->tipoPeriodo):
-            $i=$this->formulas->equivalenciaTasas($i,$this->tiempos[substr($request->tipTasa,1,1)],$this->tiempos[$request->tipoPeriodo]);
-        endif;
+        $i=$this->verificarTasa($request);
         if($request->calcular==0):
             $this->validate($request,['capital'=>'required']);
             $interesCompuesto=$this->formulas->interesCompuesto($this->cleanDataNumeric($request->capital),$i,$request->periodo);
@@ -122,14 +129,22 @@ class PeticionesController extends Controller
 
     public function formAmortizacion(){
         $data=[
-            'title'=>'AMORTIZACION'];
+            'title'=>'AMORTIZACION',
+            'tiposPeriodos'=>$this->tiposPeriodos,
+            'tiposTasas'=>$this->tiposTasas
+        ];
         return view('amortizacion')->with($data);
     }
 
     public function postAmortizacion(Request $request){
-        //$p=$request->p;
-
-        //dd($this->formulas->equivalenciaTasas(0.08,4,12));
+        $this->validate($request,[
+            'periodo'=>'required',
+            'tasa'=>'required'
+        ]);
+        $i=$this->verificarTasa($request);
+        //$cuota=$this->formulas->amortizacion($i,$request->monto,$request->periodo);
+        $cuota=$this->formulas->amortizacion(0.1,1000000,4);
+        dd($cuota);
         $p='datos a mostrar';
         $data=[
             'title'=>'AMORTIZACION',

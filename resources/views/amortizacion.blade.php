@@ -11,39 +11,62 @@
         @endif
         <h1>AMORTIZACION Y CAPITALIZACION</h1>
         {!! Form::open(['route'=>'amortizacion.post',"name"=>"amortizacion","method"=>"POST"]) !!}
-        <form name="amortizacion" action="{{route('amortizacion.post')}}" method="POST">
             <div id="datos" class="col-sm-6">
                 <h2>Intriduce los Datos Solicitados</h2>
-                <h3>Monto:</h3>
-                <td> $ </td><input type="TEXT" name="p" size="10" onchange="value=formatNumber(value,2,0)">
-
-                <h3>Plazo:</h3>
-                <input type="TEXT" name="c" size="5" onchange="value=formatNumber(value,2,0)"><td> AÑOS </td><input type="TEXT" name="c" size="5" onchange="value="> MESES
-
+                <div id="montoInicial">
+                    <h3>Monto inicial:</h3>
+                    {!! Form::text('monto',isset($datos)?$datos->monto:old('monto'),['size'=>'30','class'=>'number','placeholder'=>'Cuanto se paga por periodo','title'=>'Cuanto se paga por periodo']) !!}
+                </div>
+                <h3>Peridos:</h3>
+                {!! Form::text('periodo',isset($datos)?$datos->periodo:old('periodo'),['size'=>'30','class'=>'number','placeholder'=>'Cada cuanto debe pagar','title'=>'Cada cuanto debe pagar']) !!}
+                {!! Form::select('tipoPeriodo',$tiposPeriodos,isset($datos)?$datos->tipoPeriodo:old('tipoPeriodo'),['title'=>'Cada cuanto debe pagar']) !!}
                 <h3>Tasa de interés:</h3>
-                <input type="TEXT" name="r" size="6" value="" onchange="value=numval(value,2,0)"> %
-                <input type="BUTTON" value="Calcular" onclick="">
+                {!! Form::text('tasa',isset($datos)?$datos->tasa:old('tasa'),['size'=>'20','id'=>'tasa','placeholder'=>'porcentaje de interés','title'=>'porcentaje de interés']) !!} %
+                {!! Form::select('tipTasa',$tiposTasas,isset($datos)?$datos->tipTasa:old('tipTasa')) !!}
+                <div>
+                    {!! Form::submit('Calcular') !!}
+                </div>
             </div>
 
             <div class="col-sm-6">
                 <div  id="textosi">
-                    <a href="index.php">INICIO</a>
                     <h2>Amortizacion y Capitalizacion</h2>
                     <p><b>Amortizacion</b> se define como redimir o extinguir el capital de un censo, préstamo u otra deuda, como también  recuperación o compensación de los fondos invertidos en alguna empresa.<br>
                         <b>Capitalizacion</b>  se define como la fijación del capital que corresponde a determinado rendimiento o interés, según el tipo de capitalización que se adopta para el cálculo</p>
                 </div>
-
-
             </div>
 
             <div id="cuadro" class="col-sm-10">
-                <h3>Cuadro de Amortización:</h3>
-                <textarea cols="60" rows="4" name="cuadro"></textarea>
+                @if(isset($datosTabla))
+                    <h3>Cuadro de Amortización:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Periodo</th>
+                                <th>Saldo</th>
+                                <th>Interés</th>
+                                <th>Cuota</th>
+                                <th>Amortización</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($datosTabla as $dato)
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
 
 
 
-        </form>
+        {!! Form::close() !!}
 
     </div>
 @endsection
