@@ -7,36 +7,20 @@
 @section('content')
     <div id="interes">
         <h1>{{$title}}</h1>
-        <form name="interes-compuesto" action="{{route('interes.post')}}" method="POST">
-            {{csrf_field()}}
+        {!! Form::open(['route'=>'interes.post',"name"=>"interes-compuesto","method"=>"POST"]) !!}
             <div id="periodo" class="col-sm-4">
                 <h3>Capital inicial:</h3>
-                <td> $ </td><input type="TEXT" name="p" size="10" onchange="value=formatNumber(value,2,0)">
-                <h3>Adición anual:</h3>
-                <td> $ </td><input type="TEXT" name="c" size="10" onchange="value=formatNumber(value,2,0)">
-                <h3>Años:</h3>
-                <input type="TEXT" name="y" size="6" value="" onchange="value=numval(value,2,1)">
+                {!! Form::text('capital',old('number'),['size'=>'30','class'=>'number','placeholder'=>'Cuanto se paga por periodo','title'=>'Cuanto se paga por periodo']) !!}
+                <h3>Peridos:</h3>
+                {!! Form::text('periodo',old('periodo'),['size'=>'30','class'=>'number','placeholder'=>'Cada cuanto debe pagar','title'=>'Cada cuanto debe pagar']) !!}
+                {!! Form::select('tipoPeriodo',$tiposPeriodos,old('tipoPeriodo'),['title'=>'Cada cuanto debe pagar']) !!}
                 <h3>Tasa de interés:</h3>
-                <input type="TEXT" name="r" size="6" value="" onchange="value=numval(value,2,0)"> %
+                {!! Form::text('tasa',old('tasa'),['size'=>'20','id'=>'tasa','placeholder'=>'porcentaje de interés','title'=>'porcentaje de interés']) !!} %
+                {!! Form::select('tipTasa',$tiposTasas,old('tipTasa')) !!}
+                <div>
+                    {!! Form::submit('Calcular') !!}
+                </div>
             </div>
-
-            <div id="tiempo" class="col-sm-4">
-                <h3>Interés compuesto</h3>
-                <input type="TEXT" name="n" size="4" value="1" maxlength="4" onchange="value=numval(value,0,1)">
-                veces por año
-                <h3>Hacer las adiciones a</h3>
-                <input type="RADIO" name="addTiming" value="start" checked="">&ensp;inicio
-                <input type="RADIO" name="addTiming" value="end">&ensp;fin
-                de cada período
-
-                <h3>Valor futuro:</h3>
-                <td> $ </td><input type="TEXT" name="fv" size="10" readonly="">
-
-                <h3>Número de períodos</h3><input class="vis biginput R W60" type="text" id="period" name="period" value="5" maxlength="3" onclick="this.value = ;" onkeyup="">
-
-                <input type="submit" value="Calcular">
-            </div>
-
 
             <div class="col-sm-4">
                 <div  id="textosi">
@@ -48,10 +32,18 @@
 
                 </div>
             </div>
-        </form>
-
+        {!! Form::close() !!}
     </div>
 @endsection
 
 @section('script')
+    <script src="{{asset('js/jquery.number.min.js')}}"></script>
+    <script>
+        $(window).ready(function () {
+            $('#tasa').keyup(function () {
+                this.value = this.value.replace(/[^0-9\,]/g, '');
+            });
+            $('.number').number(true, 0, ',', '.');
+        });
+    </script>
 @endsection

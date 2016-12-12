@@ -6,6 +6,9 @@
 
 @section('content')
     <div id="amortizacion">
+        @if(isset($dato1))
+            {{$dato1}}
+        @endif
         <h1>AMORTIZACION Y CAPITALIZACION</h1>
         <form name="amortizacion" action="{{route('amortizacion.post')}}" method="POST">
             <div id="datos" class="col-sm-6">
