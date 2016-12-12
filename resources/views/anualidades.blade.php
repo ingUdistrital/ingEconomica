@@ -8,6 +8,7 @@
     <div id="anualidades">
         <h1>ANUALIDADES</h1>
         <form name="anualidades" action="{{route('anualidades.post')}}" method="POST">
+            {{csrf_field()}}
             <div class="col-sm-5">
                 <div id="periodo" class="col-sm-12">
                     <h3 valign="top">Tipo de pago</h3>
@@ -17,34 +18,29 @@
                     <label class="css-label" for="p1">&ensp;Anualidad ordinaria</label>
                 </div>
 
-                <div id="tiempo" class="col-sm-12">
-                    <input class="css-radio" type="radio" id="t1" name="anual" checked="" onclick=""><label class="css-label" for="t1">&ensp;Año(s)</label>
-                    <input class="css-radio" type="radio" id="t2" name="trimestral" onclick=""><label class="css-label" for="t2">&ensp;Trimestre</label>
-                    <input class="css-radio" type="radio" id="t3" name="bimestral" onclick=""><label class="css-label" for="t3">&ensp;Bimestre</label>
-                    <input class="css-radio" type="radio" id="t4" name="mensual" onclick=""><label class="css-label" for="t4">&ensp;Meses</label>
-                </div>
-
-
                 <div class="col-sm-12">
 
                     <h3>Valor actual:</h3>
-                    <input class="vis biginput R W120" type="number" id="pv" name="pv" value="10000" maxlength="10" onclick="" onkeyup="">
+                    <input class="vis biginput R W120" type="number" id="valorTotal" name="valorTotal" value="{{isset($datos)?$datos->anualidad:null}}" maxlength="10" onclick="" onkeyup="">
 
-                    <h3>Interés y Tipo:</h3>
-                    <input class="vis biginput R W60" type="number" id="r" name="interes" value="6.00" maxlength="5" onclick="" onkeyup="">
-                    <select name="tipoInteres" class="vis biginput R">
-                        <option value="EM">Efectiva Mensual</option>
-                        <option value="EB">Efectiva Bimestral</option>
-                        <option value="ET">Efectiva Trimestral</option>
-                        <option value="ES">Efectiva Semestral</option>
-                        <option value="EA">Efectiva Anual</option>
-                    </select>
+                    <h3>Cuota actual:</h3>
+                    <input class="vis biginput R W120" type="number" id="redito" name="redito" value="{{isset($datos)?$datos->cuotaActual:null}}" step="any">
+
+                    <!--
                     <h3>Número de pagos:</h3>
-                    <input class="vis biginput R W60" min="2" max="100" type="number" id="period" name="period" value="5" maxlength="3" onclick="" onkeyup="">
-                    <input class="submit" type="button" name="calcular" onclick="" value="clacular">
-                    <h3>Anualidad</h3>
-                    <input class="hid biginput R W120" id="pmt" name="pmt" readonly="readonly" value="{$}">
-                    <!-- <input class="submit" type="button" name="calcular" onclick="" value="clacular"> -->
+                    <input class="vis biginput R W60" min="2" max="100" type="number" id="periodo" name="periodo" value="{{isset($datos)?$datos->numeroPagos:null}}" >
+                    -->
+
+                    <h3>Peridos:</h3>
+                    {!! Form::text('periodo',isset($datos)?$datos->periodo:old('periodo'),['size'=>'30','class'=>'number','placeholder'=>'Cada cuanto debe pagar','title'=>'Cada cuanto debe pagar']) !!}
+                    {!! Form::select('tipoPeriodo',$tiposPeriodos,isset($datos)?$datos->tipoPeriodo:old('tipoPeriodo'),['title'=>'Cada cuanto debe pagar']) !!}
+                    <h3>Tasa de interés:</h3>
+                    {!! Form::text('tasa',isset($datos)?$datos->tasa:old('tasa'),['size'=>'20','id'=>'tasa','placeholder'=>'porcentaje de interés','title'=>'porcentaje de interés']) !!} %
+                    {!! Form::select('tipTasa',$tiposTasas,isset($datos)?$datos->tipTasa:old('tipTasa')) !!}
+                    <div>
+                        {!! Form::submit('Calcular') !!}
+                    </div>
+
                 </div>
             </div>
             <div class="col-sm-7">

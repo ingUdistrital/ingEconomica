@@ -114,7 +114,11 @@ class PeticionesController extends Controller
     /******************************************************************************/
 
     public function formAnualidades(){
-        $data=['title'=>'ANUALIDADES'];
+        $data=[
+            'title'=>'ANUALIDADES',
+            'tiposPeriodos'=>$this->tiposPeriodos,
+            'tiposTasas'=>$this->tiposTasas
+        ];
         return view('anualidades')->with($data);
     }
 
@@ -123,7 +127,19 @@ class PeticionesController extends Controller
 
         //dd($this->formulas->equivalenciaTasas(0.08,4,12));
 
-        $data=['title'=>'ANUALIDADES'];
+        $anualidad = $this->formulas->anualidadesDiferidas(null,null,$request->interes,$request->valorTotal,$request->redito,$request->periodo,null);
+        $data=[
+            'title'=>'ANUALIDADES',
+            'datos'=>(object)[
+                "anualidad" =>$anualidad,
+                "cuotaActual" =>$request->redito,
+                //"interes" =>$request->interes,
+                "numeroPagos" =>$request->periodo,
+                "tasa" =>$request->tasa,
+                "tipTasa" =>$request->tipTasa
+                ],
+            'tiposTasas'=>$this->tiposTasas
+        ];
         return view('anualidades')->with($data);
     }
 
