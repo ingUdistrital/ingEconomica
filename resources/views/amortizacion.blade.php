@@ -10,6 +10,7 @@
             {{$dato1}}
         @endif
         <h1>AMORTIZACION Y CAPITALIZACION</h1>
+        {!! Form::open(['route'=>'amortizacion.post',"name"=>"amortizacion","method"=>"POST"]) !!}
         <form name="amortizacion" action="{{route('amortizacion.post')}}" method="POST">
             <div id="datos" class="col-sm-6">
                 <h2>Intriduce los Datos Solicitados</h2>
