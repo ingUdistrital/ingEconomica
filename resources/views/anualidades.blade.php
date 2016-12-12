@@ -26,11 +26,6 @@
                     <h3>Cuota actual:</h3>
                     <input class="vis biginput R W120" type="number" id="redito" name="redito" value="{{isset($datos)?$datos->cuotaActual:null}}" step="any">
 
-                    <!--
-                    <h3>Número de pagos:</h3>
-                    <input class="vis biginput R W60" min="2" max="100" type="number" id="periodo" name="periodo" value="{{isset($datos)?$datos->numeroPagos:null}}" >
-                    -->
-
                     <h3>Peridos:</h3>
                     {!! Form::text('periodo',isset($datos)?$datos->periodo:old('periodo'),['size'=>'30','class'=>'number','placeholder'=>'Cada cuanto debe pagar','title'=>'Cada cuanto debe pagar']) !!}
                     {!! Form::select('tipoPeriodo',$tiposPeriodos,isset($datos)?$datos->tipoPeriodo:old('tipoPeriodo'),['title'=>'Cada cuanto debe pagar']) !!}

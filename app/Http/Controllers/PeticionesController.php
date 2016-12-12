@@ -127,7 +127,9 @@ class PeticionesController extends Controller
 
         //dd($this->formulas->equivalenciaTasas(0.08,4,12));
 
-        $anualidad = $this->formulas->anualidadesDiferidas(null,null,$request->interes,$request->valorTotal,$request->redito,$request->periodo,null);
+        $i=$this->verificarTasa($request);
+
+        $anualidad = $this->formulas->anualidadesDiferidas(null,null,$i,$request->valorTotal,$request->redito,$request->periodo,null);
         $data=[
             'title'=>'ANUALIDADES',
             'datos'=>(object)[
@@ -138,6 +140,7 @@ class PeticionesController extends Controller
                 "tasa" =>$request->tasa,
                 "tipTasa" =>$request->tipTasa
                 ],
+            'tiposPeriodos'=>$this->tiposPeriodos,
             'tiposTasas'=>$this->tiposTasas
         ];
         return view('anualidades')->with($data);
