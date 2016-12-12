@@ -106,6 +106,10 @@ class FormulasController extends Controller
 
     /*********AMORTIZACIÓN**********/
 
+    public function amortizacion($i,$vP,$t){
+        $cuota = $this->anualidadesDiferidas(null,null,$t,$i,$vP,null,null,null);
+        return $cuota;
+    }
 
     /*********CAPITALIZACION**********/
 
