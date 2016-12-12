@@ -11,7 +11,7 @@
             <h2>{{$respuesta}}</h2>
         @endif
         {!! Form::open(['route'=>'interes.post',"name"=>"interes-compuesto","method"=>"POST"]) !!}
-            <div id="periodo" class="col-sm-4">
+            <div id="periodo" class="col-sm-7">
                 <h3>Que desea calcular:</h3>
                 {!! Form::select('calcular',['Capital Total','Capital inicial'],isset($datos)?$datos->calcular:old('calcular'),['id'=>'calcular']) !!}
                 <div id="capitalTotal">
@@ -34,9 +34,9 @@
                 </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <div  id="textosi">
-                    <a href="{{route('index')}}">INICIO</a>
+
                     <h2>Interes Compuesto</h2>
                     <p>representa el costo del dinero , beneficio o utilidad de un capital inicial (C) o principal a una tasa de interés (i) durante un período (t) , en el cual los intereses que se obtienen al final de cada período de inversión no se retiran sino que se reinvierten o añaden al capital inicial; es decir, se capitalizan , produciendo un capital final (C f ).<br>
                         Para un período determinado sería<br>

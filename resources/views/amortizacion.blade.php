@@ -11,7 +11,7 @@
         @endif
         <h1>AMORTIZACION Y CAPITALIZACION</h1>
         {!! Form::open(['route'=>'amortizacion.post',"name"=>"amortizacion","method"=>"POST"]) !!}
-            <div id="datos" class="col-sm-6">
+            <div class="col-sm-6">
                 <h2>Intriduce los Datos Solicitados</h2>
                 <h3>Que desea calcular:</h3>
                 {!! Form::select('calcular',['Amortizacion','Capitalizacion'],isset($datos)?$datos->calcular:old('calcular'),['id'=>'calcular']) !!}
@@ -68,7 +68,7 @@
 
 
 
-        {!! Form::close() !!}
+        </form>
 
     </div>
 @endsection

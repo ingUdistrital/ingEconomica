@@ -6,15 +6,15 @@
 
 @section('content')
     <main>
-        <div  id="banner" class="col-sm-7">
-            <IMG SRC="images/banner.jpg" WIDTH=490 HEIGHT=450 ALT="Obra de K. Haring">
+        <div  id="banner" class="col-sm-6">
+            <IMG SRC="images/banner.jpg" WIDTH=490 HEIGHT=350 ALT="Obra de K. Haring">
         </div>
-        <div id="datos" class="col-sm-5">
+        <div id="datos" class="col-sm-6">
 
             <h4>INGENIERÍA ECONOMICA</h4><br>
 
             <h5>INTEGRANTES:</h5>
-            <h4>JAIME RAFAELsss NORATO CORREDOR</h4>
+            <h4>JAIME RAFAEL NORATO CORREDOR</h4>
             <h5>20162678133</h5>
             <h4>EDISSON RUIZ CARDENAS</h4>
             <h5>20162678146</h5>

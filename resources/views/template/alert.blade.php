@@ -5,7 +5,7 @@
 @endif
 
 @if($errors->any())
-    <ul class="alert error">
+    <ul class="alert_error">
         @foreach($errors->all() as $error)
             <li>{{ $error }}</li>
         @endforeach

@@ -7,7 +7,7 @@ h1{
 }
 /***********************************************/
 nav{
-    margin: 4% 5%;
+    margin:  55px 88px;
 }
 nav a{
     border-right: red solid 1px;
@@ -21,9 +21,12 @@ nav a{
     border: red solid 2px;
     border-radius: 0.5em;
 }
+#datos{
+    padding-left: 172px;
+}
 /**********************************************/
 footer{
-	margin-left: 5%;
+	margin-left: 10px;
     text-align: center;
     width: 100%;
     bottom: 0;
@@ -32,8 +35,7 @@ footer{
 
 }
 #anualidades,#interes,#amortizacion,#gradiantes{
-	margin-left: 15%;
-    margin-top: 4%;
+	margin-left: 220px;
 }
 #textos{
 	font-size: 1.3em;
@@ -51,5 +53,9 @@ footer{
 #textos a,#textosi a{
 	text-align: right;
 }
-
-
+.alert_error {
+    margin-left: 220px;
+    color: red;
+    font-weight: bold;
+    font-size: medium;
+}
