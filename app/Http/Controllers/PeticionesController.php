@@ -161,13 +161,24 @@ class PeticionesController extends Controller
             'tasa'=>'required'
         ]);
         $i=$this->verificarTasa($request);
-        //$cuota=$this->formulas->amortizacion($i,$request->monto,$request->periodo);
-        $cuota=$this->formulas->amortizacion(0.1,1000000,4);
-        dd($cuota);
-        $p='datos a mostrar';
+        if ($request->calcular==0):
+            $tablas=$this->formulas->amortizacion($request->monto,$i,$request->periodo);
+        else:
+            $tablas=$this->formulas->capitalizacion($request->monto,$i,$request->periodo);
+        endif;
         $data=[
             'title'=>'AMORTIZACION',
-            'dato1'=>$p
+            'datosTabla'=>$tablas,
+            'datos'=>(object)[
+                "calcular" =>$request->calcular,
+                "monto" =>$request->monto,
+                "periodo" =>$request->periodo,
+                "tipoPeriodo" =>$request->tipoPeriodo,
+                "tasa" =>$request->tasa,
+                "tipTasa" =>$request->tipTasa
+            ],
+            'tiposPeriodos'=>$this->tiposPeriodos,
+            'tiposTasas'=>$this->tiposTasas
         ];
         return view('amortizacion')->with($data);
     }

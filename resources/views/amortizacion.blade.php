@@ -13,8 +13,10 @@
         {!! Form::open(['route'=>'amortizacion.post',"name"=>"amortizacion","method"=>"POST"]) !!}
             <div id="datos" class="col-sm-6">
                 <h2>Intriduce los Datos Solicitados</h2>
+                <h3>Que desea calcular:</h3>
+                {!! Form::select('calcular',['Amortizacion','Capitalizacion'],isset($datos)?$datos->calcular:old('calcular'),['id'=>'calcular']) !!}
                 <div id="montoInicial">
-                    <h3>Monto inicial:</h3>
+                    <h3>Monto:</h3>
                     {!! Form::text('monto',isset($datos)?$datos->monto:old('monto'),['size'=>'30','class'=>'number','placeholder'=>'Cuanto se paga por periodo','title'=>'Cuanto se paga por periodo']) !!}
                 </div>
                 <h3>Peridos:</h3>
@@ -42,21 +44,21 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Periodo</th>
-                                <th>Saldo</th>
-                                <th>Interés</th>
-                                <th>Cuota</th>
-                                <th>Amortización</th>
+                                <th>|Periodo|</th>
+                                <th>|Saldo|</th>
+                                <th>|Interés|</th>
+                                <th>|Cuota|</th>
+                                <th>{{$datos->calcular==0?'|Amortización|':'|Capitalizacion|'}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($datosTabla as $dato)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>|{{$dato->periodo}}|</td>
+                                    <td>|{{$dato->saldo}}|</td>
+                                    <td>|{{$dato->interes}}|</td>
+                                    <td>|{{$dato->cuota}}|</td>
+                                    <td>|{{$dato->amortCapi}}|</td>
                                 </tr>
                             @endforeach
                         </tbody>

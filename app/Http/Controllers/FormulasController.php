@@ -112,16 +112,74 @@ class FormulasController extends Controller
     /*********AMORTIZACIÓN**********/
 
     public function amortizacion($monto,$i,$n){
+        $tablas=array();
+        $saldo=$monto;
         $cuota = $this->calcularCuota($monto,$i,$n);
-        return $cuota;
+        for($a=0;$a<=$n;$a++):
+            $interes=$saldo*$i;
+            $amortizacion=$cuota-$interes;
+            if($a==0):
+                $tablas[]=(object)[
+                    'periodo'=>$a,
+                    'saldo'=>$monto,
+                    'interes'=>'',
+                    'cuota'=>'',
+                    'amortCapi'=>'',
+                ];
+            else:
+                $saldo=$saldo-$amortizacion;
+                $tablas[]=(object)[
+                    'periodo'=>$a,
+                    'saldo'=>number_format($saldo,3,',','.'),
+                    'interes'=>number_format($interes,3,',','.'),
+                    'cuota'=>number_format($cuota,3,',','.'),
+                    'amortCapi'=>number_format($amortizacion,3,',','.'),
+                ];
+            endif;
+        endfor;
+        return $tablas;
     }
 
     public function calcularCuota($monto,$i,$n){
-        return $monto*($i/(1-pow((1+$i),(-$n))));
+        $divisor=1-pow((1+$i),(-$n));
+        return $monto*($i/$divisor);
     }
 
     /*********CAPITALIZACION**********/
+    public function capitalizacion($monto,$i,$n){
+        $tablas=array();
+        $cuota = $this->calcularCuotaCapi($monto,$i,$n);
+        $saldo=$cuota;
+        $capitalizacion=$cuota;
+        for($a=0;$a<=$n;$a++):
+            $interes=$saldo*$i;
+            if($a==0):
+                $tablas[]=(object)[
+                    'periodo'=>$a,
+                    'saldo'=>number_format($saldo,3,',','.'),
+                    'interes'=>0,
+                    'cuota'=>number_format($cuota,3,',','.'),
+                    'amortCapi'=>number_format($capitalizacion,3,',','.'),
+                ];
+            else:
+                $saldo=$saldo+$capitalizacion;
+                $capitalizacion=$cuota+$interes;
+                $tablas[]=(object)[
+                    'periodo'=>$a,
+                    'saldo'=>number_format($saldo,3,',','.'),
+                    'interes'=>number_format($interes,3,',','.'),
+                    'cuota'=>number_format($cuota,3,',','.'),
+                    'amortCapi'=>number_format($capitalizacion,3,',','.'),
+                ];
+            endif;
+        endfor;
+        return $tablas;
+    }
 
+    public function calcularCuotaCapi($monto,$i,$n){
+        $divisor=pow((1+$i),$n)-1;
+        return $monto/($divisor/$i);
+    }
 
     /*********GRADIENTES**********/
 
