@@ -81,26 +81,24 @@ class FormulasController extends Controller
     /**
      * Calcula el monto de invercion (Vp) o el redito (r) de anualidades
      * @param $Vp - Valor presente
-     * @param $r - Redito o cuota
+     * @param $redito - Redito o cuota
      * @param $i- tasa efectivo(en meses)
      * @param $n- periodo de tiempo en el que se vence el prestamo.
      * @return float - redito o monto anual.
      */
-    public function anualidadesDiferidas($anuAd,$anuOrd,$interes,$valorTotal,$redito,$numeroPagos,$fechaInicio){
+    public function anualidadesDiferidas($interes,$valorTotal,$redito,$numeroPagos){
         $n1 = 0;
         $resultado = 0;
-        //if(empty($vP) || isset($vP) || is_null($vP)){
+        if($valorTotal===null){
             /*Valor Presente*/
-            echo "interes: ".$interes." redito: ".$redito." numeroPagos: ".$numeroPagos;
+            //echo "interes: ".$interes." redito: ".$redito." numeroPagos: ".$numeroPagos;
             $resultado =  $redito * ((pow((1+$interes),$numeroPagos) - 1)/$interes);
-                //* pow((1+$i),$n1);
             return $resultado;
-        //}
-        /*elseif (empty($r) || isset($r) || is_null($r)){
-            $r = $vP/((pow((1+$i),$n) - 1)/$i);
-                    //* pow((1+$i),$n1));
-            return $r;
-        }*/
+        }
+        elseif ($redito===null){
+            $resultado = $valorTotal/((pow((1+$interes),$numeroPagos) - 1)/$interes);
+            return $resultado;
+        }
     }
 
     public function anualidadesPerpetuas(){

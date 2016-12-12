@@ -7,24 +7,24 @@
 @section('content')
     <div id="anualidades">
         <h1>ANUALIDADES</h1>
+        <h2>{{isset($respuesta)?$respuesta:null}}</h2>
         <form name="anualidades" action="{{route('anualidades.post')}}" method="POST">
             {{csrf_field()}}
             <div class="col-sm-5">
                 <div id="periodo" class="col-sm-12">
                     <h3 valign="top">Tipo de pago</h3>
-                    <input class="css-radio" type="radio" id="p0" name="anuAd" checked="" onclick="">
-                    <label class="css-label" for="p0">&ensp;Anualidad  adelantada </label><br>
-                    <input class="css-radio" type="radio" id="p1" name="anuOrd" onclick="">
-                    <label class="css-label" for="p1">&ensp;Anualidad ordinaria</label>
+                    {!! Form::select('calcular',['Anualidad  adelantada','Anualidad ordinarial'],isset($datos)?$datos->calcular:old('calcular'),['id'=>'calcular']) !!}
                 </div>
 
                 <div class="col-sm-12">
-
-                    <h3>Valor actual:</h3>
-                    <input class="vis biginput R W120" type="number" id="valorTotal" name="valorTotal" value="{{isset($datos)?$datos->anualidad:null}}" maxlength="10" onclick="" onkeyup="">
-
-                    <h3>Cuota actual:</h3>
-                    <input class="vis biginput R W120" type="number" id="redito" name="redito" value="{{isset($datos)?$datos->cuotaActual:null}}" step="any">
+                    <div id="valorTotal">
+                        <h3>Valor actual:</h3>
+                        <input class="number vis biginput R W120" type="text" name="valorTotal" value="{{isset($datos)?$datos->anualidad:null}}" maxlength="10" >
+                    </div>
+                    <div id="redito">
+                        <h3>Cuota actual:</h3>
+                        <input class="number vis biginput R W120" type="text"  name="redito" value="{{isset($datos)?$datos->cuotaActual:null}}" step="any">
+                    </div>
 
                     <h3>Peridos:</h3>
                     {!! Form::text('periodo',isset($datos)?$datos->periodo:old('periodo'),['size'=>'30','class'=>'number','placeholder'=>'Cada cuanto debe pagar','title'=>'Cada cuanto debe pagar']) !!}
@@ -41,7 +41,6 @@
             <div class="col-sm-7">
                 <div class="col-sm-12">
                     <div  id="textos">
-                        <a href="index.php">INICIO</a>
                         <h2>Anualidades</h2>
                         <p>Se aplica a problemas financieros en los que existen un conjunto de pagos iguales a intervalos de tiempo regulares.<br>
                             <b>Anualidades ordinarias</b> o vencidas cuando el pago correspondiente a un intervalo se hace al final del mismo, por ejemplo, al final del mes.<br>
@@ -62,7 +61,29 @@
     </div>
 @endsection
 
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquiery.min.js"></script>
 @section('script')
+    <script src="{{asset('js/jquery.number.min.js')}}"></script>
+    <script>
+        $(window).ready(function () {
+            $('#tasa').keyup(function () {
+                this.value = this.value.replace(/[^0-9\,]/g, '');
+            });
+            $('.number').number(true, 0, ',', '.');
+            capital();
+            $('#calcular').change(function () {
+                capital();
+            });
+
+        });
+
+        function capital() {
+            if($('#calcular').val()==0){
+                $('#valorTotal').show()
+                $('#redito').hide()
+            }else{
+                $('#valorTotal').hide()
+                $('#redito').show()
+            }
+        }
+    </script>
 @endsection

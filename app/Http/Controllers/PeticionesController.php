@@ -123,20 +123,23 @@ class PeticionesController extends Controller
     }
 
     public function postAnualidades(Request $request){
-        //$p=$request->p;
-
-        //dd($this->formulas->equivalenciaTasas(0.08,4,12));
-
         $i=$this->verificarTasa($request);
-
-        $anualidad = $this->formulas->anualidadesDiferidas(null,null,$i,$request->valorTotal,$request->redito,$request->periodo,null);
+        if($request->calcular==0):
+            $anualidad = $this->formulas->anualidadesDiferidas($i,null,$request->redito,$request->periodo);
+            $respuesta='La anualidad adelantada es de '.number_format($anualidad,3,',','.');
+        else:
+            $anualidad = $this->formulas->anualidadesDiferidas($i,$request->valorTotal,null,$request->periodo);
+            $respuesta='La anualidad ordinaria es de '.number_format($anualidad,3,',','.');
+        endif;
         $data=[
             'title'=>'ANUALIDADES',
+            "respuesta" =>$respuesta,
             'datos'=>(object)[
-                "anualidad" =>$anualidad,
+                "calcular" =>$request->calcular,
+                "anualidad" =>$request->valorTotal,
                 "cuotaActual" =>$request->redito,
-                //"interes" =>$request->interes,
-                "numeroPagos" =>$request->periodo,
+                "tipoPeriodo" =>$request->tipoPeriodo,
+                "periodo" =>$request->periodo,
                 "tasa" =>$request->tasa,
                 "tipTasa" =>$request->tipTasa
                 ],
