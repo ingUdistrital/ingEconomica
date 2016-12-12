@@ -8,6 +8,8 @@ class PeticionesController extends Controller
 {
     protected  $formulas;/** objeto de formulas controller */
     protected $tiempos;/** arreglo que contiene los tiempos segun el tipo de periodo o tasa ejemplo: trimestral=>4 */
+    protected $tiposPeriodos;
+    protected $tiposTasas;
     public function __construct()
     {
         $this->tiempos=[
@@ -16,6 +18,25 @@ class PeticionesController extends Controller
             't'=>4,
             's'=>2,
             'a'=>1
+        ];
+        $this->tiposPeriodos=[
+            'm'=>'Mes',
+            'b'=>'Bimestres',
+            't'=>'Trimestres',
+            's'=>'Semestres',
+            'a'=>'Años'
+        ];
+        $this->tiposTasas=[
+            'em'=>'Efectiva Mensual',
+            'eb'=>'Efectiva Bimestral',
+            'et'=>'Efectiva Trimestral',
+            'es'=>'Efectiva Semestral',
+            'ea'=>'Efectiva Anual',
+            'nm'=>'Nominal Mensual',
+            'nb'=>'Nominal Bimestral',
+            'nt'=>'Nominal Trimestral',
+            'ns'=>'Nominal Semestral',
+            'na'=>'Nominal Anual',
         ];
         $this->formulas=new FormulasController();
     }
@@ -28,45 +49,51 @@ class PeticionesController extends Controller
     public function formInteresCompuesto(){
         $data=[
             'title'=>'INTERES COMPUESTO',
-            'tiposPeriodos'=>[
-                'm'=>'Mes',
-                'b'=>'Bimestres',
-                't'=>'Trimestres',
-                's'=>'Semestres',
-                'a'=>'Años'
-            ],
-            'tiposTasas'=>[
-                'em'=>'Efectiva Mensual',
-                'eb'=>'Efectiva Bimestral',
-                'et'=>'Efectiva Trimestral',
-                'es'=>'Efectiva Semestral',
-                'ea'=>'Efectiva Anual',
-                'nm'=>'Nominal Mensual',
-                'nb'=>'Nominal Bimestral',
-                'nt'=>'Nominal Trimestral',
-                'ns'=>'Nominal Semestral',
-                'na'=>'Nominal Anual',
-            ]
+            'tiposPeriodos'=>$this->tiposPeriodos,
+            'tiposTasas'=>$this->tiposTasas
         ];
         return view('interesCompuesto')->with($data);
     }
 
     public function postInteresCompuesto(Request $request){
+        $tasa=str_replace(',','.',$request->tasa)/100;
         /**determino si la tasa es nominal o efectiva, si es nominal se convierte a efectiva*/
         if(substr($request->tipTasa,0,1)=='n'):
-            $i=$this->formulas->tasaEfectiva($request->tasa,$request->periodo);
+            $i=$this->formulas->tasaEfectiva($tasa,$this->tiempos[$request->tipoPeriodo]);
         else:
-            $i=$this->tasa;
+            $i=$tasa;
         endif;
         /** se determina si los periodos de cobros estan en unidades de tiempo diferentes a las del interes
          * ejemplo si el periodo de cobro es mensual pero el interes se cobra trimestral, se conbierte a interes mensual
          */
         if(substr($request->tipTasa,1,1)!==$request->tipoPeriodo):
-            $i=$this->formulas->equivalenciaTasas($request->tasa,$this->tiempos[substr($request->tipTasa,1,1)],$this->tiempos[$request->tipoPeriodo]);
+            $i=$this->formulas->equivalenciaTasas($i,$this->tiempos[substr($request->tipTasa,1,1)],$this->tiempos[$request->tipoPeriodo]);
         endif;
-        $interesCompuesto=$this->formulas->interesCompuesto($request->capital,$i,$request->periodo,null);
+        if($request->calcular==0):
+            $interesCompuesto=$this->formulas->interesCompuesto($this->cleanDataNumeric($request->capital),$i,$request->periodo);
+            $respuesta='El capital total es de '.number_format($interesCompuesto,3,',','.');
+        else:
+            $interesCompuesto=$this->formulas->montoInvercion($this->cleanDataNumeric($request->capitalTotal),$i,$request->periodo);
+            $respuesta='El el capital por periodo es de  '.number_format($interesCompuesto,3,',','.');
+        endif;
 
-        $data=['title'=>'INTERES COMPUESTO'];
+        //dd($interesCompuesto);
+
+        $data=[
+            'title'=>'INTERES COMPUESTO',
+            'respuesta'=>$respuesta,
+            'datos'=>(object)[
+                "calcular" =>$request->calcular,
+                "capitalTotal" =>$request->capitalTotal,
+                "capital" =>$request->capital,
+                "periodo" =>$request->periodo,
+                "tipoPeriodo" =>$request->tipoPeriodo,
+                "tasa" =>$request->tasa,
+                "tipTasa" =>$request->tipTasa
+            ],
+            'tiposPeriodos'=>$this->tiposPeriodos,
+            'tiposTasas'=>$this->tiposTasas
+        ];
         return view('interesCompuesto')->with($data);
     }
 
