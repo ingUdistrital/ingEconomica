@@ -56,6 +56,10 @@ class PeticionesController extends Controller
     }
 
     public function postInteresCompuesto(Request $request){
+        $this->validate($request,[
+            'periodo'=>'required',
+            'tasa'=>'required'
+        ]);
         $tasa=str_replace(',','.',$request->tasa)/100;
         /**determino si la tasa es nominal o efectiva, si es nominal se convierte a efectiva*/
         if(substr($request->tipTasa,0,1)=='n'):
@@ -70,9 +74,11 @@ class PeticionesController extends Controller
             $i=$this->formulas->equivalenciaTasas($i,$this->tiempos[substr($request->tipTasa,1,1)],$this->tiempos[$request->tipoPeriodo]);
         endif;
         if($request->calcular==0):
+            $this->validate($request,['capital'=>'required']);
             $interesCompuesto=$this->formulas->interesCompuesto($this->cleanDataNumeric($request->capital),$i,$request->periodo);
             $respuesta='El capital total es de '.number_format($interesCompuesto,3,',','.');
         else:
+            $this->validate($request,['capitalTotal'=>'required']);
             $interesCompuesto=$this->formulas->montoInvercion($this->cleanDataNumeric($request->capitalTotal),$i,$request->periodo);
             $respuesta='El el capital por periodo es de  '.number_format($interesCompuesto,3,',','.');
         endif;
