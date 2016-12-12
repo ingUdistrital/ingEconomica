@@ -21,3 +21,6 @@ Route::post('/anualidades',['uses'=>'PeticionesController@postAnualidades','as'=
 
 Route::get('/amortizacion',['uses'=>'PeticionesController@formAmortizacion','as'=>'amortizacion']);
 Route::post('/amortizacion',['uses'=>'PeticionesController@postAmortizacion','as'=>'amortizacion.post']);
+
+Route::get('/gradientes',['uses'=>'PeticionesController@formGradientes','as'=>'gradientes']);
+Route::post('/gradientes',['uses'=>'PeticionesController@postGradientes','as'=>'gradientes.post']);

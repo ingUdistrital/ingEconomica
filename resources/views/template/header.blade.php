@@ -6,7 +6,7 @@
                 <li><a href="{{route('interes')}}">interes compuesto</a></li>
                 <li><a href="{{route('anualidades')}}">Anualidades</a></li>
                 <li><a href="{{route('amortizacion')}}">Amortizacion y capitalizacion</a></li>
-                <li><a href="index.php">gradientes</a></li>
+                <li><a href="{{route('gradientes')}}">gradientes</a></li>
             </ul>
         </div>
     </nav>

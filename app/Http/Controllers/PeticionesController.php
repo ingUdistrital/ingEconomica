@@ -63,6 +63,21 @@ class PeticionesController extends Controller
         return view('amortizacion')->with($data);
     }
 
+    public function formGradientes(){
+        $data=[
+            'title'=>'GRADIENTES'];
+        return view('gradientes')->with($data);
+    }
+
+    public function postGradientes(Request $request){
+        //$p=$request->p;
+
+        //dd($this->formulas->equivalenciaTasas(0.08,4,12));
+
+        $data=['title'=>'GRADIENTES'];
+        return view('gradientes')->with($data);
+    }
+
 
 
     /******************************************************************************/
