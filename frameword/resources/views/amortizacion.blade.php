@@ -43,7 +43,7 @@
                             <th>Saldo</th>
                             <th>Interés</th>
                             <th>Cuota</th>
-                            <th>{{$datos->calcular==0?'|Amortización|':'|Capitalizacion|'}}</th>
+                            <th>{{$datos->calcular==0?'Amortización':'Capitalizacion'}}</th>
                         </tr>
                         </thead>
                         <tbody>

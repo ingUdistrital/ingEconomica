@@ -127,22 +127,22 @@ class PeticionesController extends Controller
         //if($request->calcular==0):
         //dd($request->calcular === "0");
         if($request->calcular === "0"){
-                $anualidad = $this->formulas->anualidadesDiferidasRedito($i,$this->cleanDataNumeric($request->valorTotal),$request->periodo);
+                $anualidad = $this->formulas->anualidadesDiferidasRedito($i,$this->cleanDataNumeric($request->valorTotal),$this->cleanDataNumeric($request->periodo));
             $respuesta='El redito de la anualidad es: '.number_format($anualidad,3,',','.');
         }elseif ($request->calcular === "1"){
-                $anualidad = $this->formulas->anualidadesDiferidasValorPresente($i,$this->cleanDataNumeric($request->redito),$request->periodo);
+                $anualidad = $this->formulas->anualidadesDiferidasValorPresente($i,$this->cleanDataNumeric($request->redito),$this->cleanDataNumeric($request->periodo));
                 $respuesta='El valor presente de la anualidad es: '.number_format($anualidad,3,',','.');
         }elseif ($request->calcular === "2"){
-            $anualidad = $this->formulas->anualidadAnticipada($i,$request->valorTotal_an,$request->periodo);
+            $anualidad = $this->formulas->anualidadAnticipada($i,$this->cleanDataNumeric($request->valorTotal_an),$this->cleanDataNumeric($request->periodo));
             $respuesta='El valor presente de la anualidad anticipada es: '.number_format($anualidad,3,',','.');
         }elseif ($request->calcular === "3"){
-            $anualidad = $this->formulas->anualidadAnticipadaRedito($i,$this->cleanDataNumeric($request->redito_an),$request->periodo);
+            $anualidad = $this->formulas->anualidadAnticipadaRedito($i,$this->cleanDataNumeric($request->redito_an),$this->cleanDataNumeric($request->periodo));
             $respuesta='El redito de la anualidad anticipada es: '.number_format($anualidad,3,',','.');
         }elseif ($request->calcular === "4"){
-            $anualidad = $this->formulas->anualidadDiferida($i,$request->valorTotal_di,$request->periodo);
+            $anualidad = $this->formulas->anualidadDiferida($i,$this->cleanDataNumeric($request->valorTotal_di),$this->cleanDataNumeric($request->periodo));
             $respuesta='El valor presente de la anualidad anticipada es: '.number_format($anualidad,3,',','.');
         }elseif ($request->calcular === "5"){
-            $anualidad = $this->formulas->anualidadDiferidaRedito($i,$this->cleanDataNumeric($request->redito_di),$request->periodo);
+            $anualidad = $this->formulas->anualidadDiferidaRedito($i,$this->cleanDataNumeric($request->redito_di),$this->cleanDataNumeric($request->periodo));
             $respuesta='El redito de la anualidad anticipada es: '.number_format($anualidad,3,',','.');
         }
             $respuesta=$respuesta;

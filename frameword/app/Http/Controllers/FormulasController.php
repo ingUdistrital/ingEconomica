@@ -105,10 +105,10 @@ class FormulasController extends Controller
 
     public function anualidadAnticipada($interes,$redito,$numeroPagos){
     $numeroPagos = -$numeroPagos;
-    dd($interes."//".$redito."//".$numeroPagos);
+    //dd($interes."//".$redito."//".$numeroPagos);
         //dd((1 - pow((1+$interes),$numeroPagos)));
     $resultado =  $redito * ((1 - pow((1+$interes),$numeroPagos))/$interes)*(1+$interes);
-        dd($resultado);
+        //dd($resultado);
     return $resultado;
 }
 

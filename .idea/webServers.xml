@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a3db21d0-ebd1-467e-9592-038fd4bdbcc6" name="ingEconomica" url="http://ftp.ingenieriaeconomica.tk">
+        <fileTransfer host="ftp.ingenieriaeconomica.tk" port="21" rootFolder="/public_html" username="ingenieriaeconom">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
