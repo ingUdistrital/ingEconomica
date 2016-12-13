@@ -17,13 +17,14 @@
                 {!! Form::select('calcular',['Amortizacion','Capitalizacion'],isset($datos)?$datos->calcular:old('calcular'),['id'=>'calcular']) !!}
                 <div id="montoInicial">
                     <h3>Monto:</h3>
-                    {!! Form::text('monto',isset($datos)?$datos->monto:old('monto'),['size'=>'30','class'=>'number','placeholder'=>'Cuanto se paga por periodo','title'=>'Cuanto se paga por periodo']) !!}
+                    {!! Form::text('monto',isset($datos)?$datos->monto:old('monto'),['maxlength'=>'9','size'=>'30','class'=>'number','placeholder'=>'Cuanto se paga por periodo','title'=>'Cuanto se paga por periodo']) !!}
                 </div>
+
                 <h3>Peridos:</h3>
-                {!! Form::text('periodo',isset($datos)?$datos->periodo:old('periodo'),['size'=>'30','class'=>'number','placeholder'=>'Cada cuanto debe pagar','title'=>'Cada cuanto debe pagar']) !!}
+                {!! Form::text('periodo',isset($datos)?$datos->periodo:old('periodo'),['maxlength'=>'2','size'=>'30','class'=>'number','placeholder'=>'Cada cuanto debe pagar','title'=>'Cada cuanto debe pagar']) !!}
                 {!! Form::select('tipoPeriodo',$tiposPeriodos,isset($datos)?$datos->tipoPeriodo:old('tipoPeriodo'),['title'=>'Cada cuanto debe pagar']) !!}
                 <h3>Tasa de interés:</h3>
-                {!! Form::text('tasa',isset($datos)?$datos->tasa:old('tasa'),['size'=>'20','id'=>'tasa','placeholder'=>'porcentaje de interés','title'=>'porcentaje de interés']) !!} %
+                {!! Form::text('tasa',isset($datos)?$datos->tasa:old('tasa'),['maxlength'=>'5','size'=>'20','id'=>'tasa','placeholder'=>'porcentaje de interés','title'=>'porcentaje de interés']) !!} %
                 {!! Form::select('tipTasa',$tiposTasas,isset($datos)?$datos->tipTasa:old('tipTasa')) !!}
                 <div>
                     {!! Form::submit('Calcular') !!}

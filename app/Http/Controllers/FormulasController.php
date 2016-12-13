@@ -86,26 +86,54 @@ class FormulasController extends Controller
      * @param $n- periodo de tiempo en el que se vence el prestamo.
      * @return float - redito o monto anual.
      */
-    public function anualidadesDiferidas($interes,$valorTotal,$redito,$numeroPagos){
-        $n1 = 0;
+    public function anualidadesDiferidasRedito($interes,$valorTotal,$numeroPagos){
+        $numeroPagos = -$numeroPagos;
+            $resultado = $valorTotal/((1 - pow((1+$interes),$numeroPagos))/$interes);
+            return $resultado;
+    }
+
+    public function anualidadesDiferidasValorPresente($interes,$redito,$numeroPagos){
         $resultado = 0;
-        if($valorTotal===null){
-            /*Valor Presente*/
-            //echo "interes: ".$interes." redito: ".$redito." numeroPagos: ".$numeroPagos;
-            $resultado =  $redito * ((pow((1+$interes),$numeroPagos) - 1)/$interes);
-            return $resultado;
-        }
-        elseif ($redito===null){
-            $resultado = $valorTotal/((pow((1+$interes),$numeroPagos) - 1)/$interes);
-            return $resultado;
-        }
+
+        //dd("interes: ".$interes."redito".$redito."numeroPagos".$numeroPagos);
+        $numeroPagos = -$numeroPagos;
+        $resultado =  $redito * ((1 - pow((1+$interes),$numeroPagos))/$interes);
+        return $resultado;
     }
 
-    public function anualidadesPerpetuas(){
+    /******************************************/
 
+    public function anualidadAnticipada($interes,$redito,$numeroPagos){
+    $numeroPagos = -$numeroPagos;
+    dd($interes."//".$redito."//".$numeroPagos);
+        dd((1 - pow((1+$interes),$numeroPagos)));
+    $resultado =  $redito * ((1 - pow((1+$interes),$numeroPagos))/$interes)*(1+$interes);
+        dd($resultado);
+    return $resultado;
+}
+
+    public function anualidadAnticipadaRedito($interes,$valorTotal,$numeroPagos){
+        $numeroPagos = -$numeroPagos;
+        dd($interes."//".$valorTotal."//".$numeroPagos);
+        $resultado = $valorTotal/(((1 - pow((1+$interes),$numeroPagos))/$interes)* (1+$interes));
+        return $resultado;
     }
 
+    public function anualidadDiferida($interes,$redito,$numeroPagos){
+        $numeroPagos = -$numeroPagos;
+        dd($interes."//".$redito."//".$numeroPagos);
+        $resultado =  $redito * ((pow((1+$interes),$numeroPagos) - 1)/$interes);
+        return $resultado;
+    }
 
+    public function anualidadDiferidaRedito($interes,$valorTotal,$numeroPagos){
+        $numeroPagos = -$numeroPagos;
+        dd($interes."//".$valorTotal."//".$numeroPagos);
+        $resultado = $valorTotal/((pow((1+$interes),$numeroPagos)-1)/$interes);
+        return $resultado;
+    }
+
+    /******************************************/
 
     /*********AMORTIZACIÓN**********/
 
