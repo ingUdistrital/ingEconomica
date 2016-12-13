@@ -26,11 +26,40 @@
                 <h3>Tasa de interés:</h3>
                 {!! Form::text('tasa',isset($datos)?$datos->tasa:old('tasa'),['maxlength'=>'5','size'=>'20','id'=>'tasa','placeholder'=>'porcentaje de interés','title'=>'porcentaje de interés']) !!} %
                 {!! Form::select('tipTasa',$tiposTasas,isset($datos)?$datos->tipTasa:old('tipTasa')) !!}
-                <div>
-                    {!! Form::submit('Calcular') !!}
-                </div>
-            </div>
 
+            </div>
+            <div>
+                {!! Form::submit('Calcular',['id'=>'btn']) !!}
+            </div>
+          {!! Form::close() !!}
+            <div id="cuadro" class="col-sm-6">
+
+                @if(isset($datosTabla))
+                    <h3>Cuadro de Amortización:</h3>
+                    <table id="tabla">
+                        <thead>
+                        <tr>
+                            <th>Periodo</th>
+                            <th>Saldo</th>
+                            <th>Interés</th>
+                            <th>Cuota</th>
+                            <th>{{$datos->calcular==0?'|Amortización|':'|Capitalizacion|'}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($datosTabla as $dato)
+                            <tr>
+                                <td>{{$dato->periodo}}</td>
+                                <td>{{$dato->saldo}}</td>
+                                <td>{{$dato->interes}}</td>
+                                <td>{{$dato->cuota}}</td>
+                                <td>{{$dato->amortCapi}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
             <div class="col-sm-6">
                 <div  id="textosi">
                     <h2>Amortizacion y Capitalizacion</h2>
@@ -39,33 +68,7 @@
                 </div>
             </div>
 
-            <div id="cuadro" class="col-sm-10">
-                @if(isset($datosTabla))
-                    <h3>Cuadro de Amortización:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>|Periodo|</th>
-                                <th>|Saldo|</th>
-                                <th>|Interés|</th>
-                                <th>|Cuota|</th>
-                                <th>{{$datos->calcular==0?'|Amortización|':'|Capitalizacion|'}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($datosTabla as $dato)
-                                <tr>
-                                    <td>|{{$dato->periodo}}|</td>
-                                    <td>|{{$dato->saldo}}|</td>
-                                    <td>|{{$dato->interes}}|</td>
-                                    <td>|{{$dato->cuota}}|</td>
-                                    <td>|{{$dato->amortCapi}}|</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @endif
-            </div>
+
 
 
 

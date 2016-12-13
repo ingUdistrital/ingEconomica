@@ -59,3 +59,25 @@ footer{
     font-weight: bold;
     font-size: medium;
 }
+#tabla{
+    border: dodgerblue solid 3px;
+    border-radius: 0.5em;
+    padding: 10px;
+}
+#tabla th {
+    border: dodgerblue solid 3px;
+    border-radius: 0.5em;
+    padding: 10px;
+}
+#tabla td{
+    border: #b1b7ba solid 3px;
+    border-radius: 0.5em;
+    padding: 10px;
+}
+#btn{
+    padding: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+    background: dodgerblue;
+
+}

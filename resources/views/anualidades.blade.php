@@ -60,11 +60,13 @@
                     <h3>Tasa de interés:</h3>
                     {!! Form::text('tasa',isset($datos)?$datos->tasa:old('tasa'),['maxlength'=>'5','size'=>'20','id'=>'tasa','placeholder'=>'porcentaje de interés','title'=>'porcentaje de interés']) !!} %
                     {!! Form::select('tipTasa',$tiposTasas,isset($datos)?$datos->tipTasa:old('tipTasa')) !!}
-                    <div>
-                        {!! Form::submit('Calcular') !!}
-                    </div>
+
 
                 </div>
+
+            </div>
+            <div>
+                {!! Form::submit('Calcular',['id'=>'btn']) !!}
             </div>
             <div class="col-sm-7">
                 <div class="col-sm-12">
