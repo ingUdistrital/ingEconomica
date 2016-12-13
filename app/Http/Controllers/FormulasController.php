@@ -106,7 +106,7 @@ class FormulasController extends Controller
     public function anualidadAnticipada($interes,$redito,$numeroPagos){
     $numeroPagos = -$numeroPagos;
     dd($interes."//".$redito."//".$numeroPagos);
-        dd((1 - pow((1+$interes),$numeroPagos)));
+        //dd((1 - pow((1+$interes),$numeroPagos)));
     $resultado =  $redito * ((1 - pow((1+$interes),$numeroPagos))/$interes)*(1+$interes);
         dd($resultado);
     return $resultado;
@@ -114,21 +114,21 @@ class FormulasController extends Controller
 
     public function anualidadAnticipadaRedito($interes,$valorTotal,$numeroPagos){
         $numeroPagos = -$numeroPagos;
-        dd($interes."//".$valorTotal."//".$numeroPagos);
+        //dd($interes."//".$valorTotal."//".$numeroPagos);
         $resultado = $valorTotal/(((1 - pow((1+$interes),$numeroPagos))/$interes)* (1+$interes));
         return $resultado;
     }
 
     public function anualidadDiferida($interes,$redito,$numeroPagos){
         $numeroPagos = -$numeroPagos;
-        dd($interes."//".$redito."//".$numeroPagos);
+        //dd($interes."//".$redito."//".$numeroPagos);
         $resultado =  $redito * ((pow((1+$interes),$numeroPagos) - 1)/$interes);
         return $resultado;
     }
 
     public function anualidadDiferidaRedito($interes,$valorTotal,$numeroPagos){
         $numeroPagos = -$numeroPagos;
-        dd($interes."//".$valorTotal."//".$numeroPagos);
+        //dd($interes."//".$valorTotal."//".$numeroPagos);
         $resultado = $valorTotal/((pow((1+$interes),$numeroPagos)-1)/$interes);
         return $resultado;
     }
